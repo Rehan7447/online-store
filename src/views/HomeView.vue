@@ -7,6 +7,7 @@ import SellBanner from "../components/home/sellBanner.vue";
 import RecentlyViewed from "../components/common/recentlyViewed.vue";
 import AdBanner from "../components/home/adBanner.vue";
 import ContactForm from "../components/home/contactForm.vue";
+import Footer from "../components/common/footer.vue";
 </script>
 
 <template>
@@ -19,5 +20,6 @@ import ContactForm from "../components/home/contactForm.vue";
     <RecentlyViewed />
     <AdBanner />
     <ContactForm />
+    <Footer />
   </div>
 </template>
