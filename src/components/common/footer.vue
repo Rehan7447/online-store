@@ -14,9 +14,9 @@
           <h2>Follow Us</h2>
           <p>lorewe lyhgekgoikiko sgwnjsqg htrjtyjktudlkj;ikieg</p>
           <div class="social-icons">
-            <i class="fab fa-facebook-f"></i>
-            <i class="fab fa-twitter"></i>
-            <i class="fab fa-instagram"></i>
+            <img src="../../assets/footer/facebook.svg" alt="Facebook" />
+            <img src="../../assets/footer/twitter.svg" alt="Twitter" />
+            <img src="../../assets/footer/insta.svg" alt="Instagram" />
           </div>
         </div>
         <div class="footer-section">
@@ -50,7 +50,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2022 I-Shoppin</p>
+      <p>© 2024 I-Shoppin</p>
       <div class="payment-icons">
         <img src="../../assets/footer/westernunion.svg" alt="wester union" />
         <img src="../../assets/footer/visa.svg" alt="Visa" />
@@ -113,11 +113,24 @@
 .footer-section ul li {
   font-size: 14px;
   margin-bottom: 10px;
+  cursor: pointer;
+  width: fit-content;
 }
 
-.social-icons i {
-  font-size: 20px;
-  margin-right: 10px;
+.footer-section ul li:hover {
+  text-decoration: underline;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.social-icons img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }
 
 .download-icons img,

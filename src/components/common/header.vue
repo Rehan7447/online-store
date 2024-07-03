@@ -12,8 +12,7 @@
           <el-button class="searchButton">Search</el-button>
         </template>
       </el-input>
-      <el-button type="primary" class="headerButton">Sign In</el-button>
-
+      <RouterLink class="headerButton" to="/login">Sign In</RouterLink>
       <div class="cartHolder">
         <el-badge :value="2" class="cartBadge">
           <img src="../../assets/cart.svg" alt="cart" />
@@ -57,6 +56,7 @@
 <script setup>
 import { ref } from "vue";
 import { Setting } from "@element-plus/icons-vue";
+import { RouterLink } from "vue-router";
 
 const searchInput = ref("");
 </script>
@@ -104,6 +104,10 @@ const searchInput = ref("");
   border-radius: 52px;
   background: linear-gradient(132.25deg, #faa236 0%, #ffaf4c 88.96%);
   border: 2px solid rgba(250, 162, 54, 1);
+  color: white;
+  text-align: center;
+  line-height: 48px;
+  text-decoration: none;
 }
 
 .cartHolder {
