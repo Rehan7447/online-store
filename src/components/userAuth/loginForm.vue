@@ -151,18 +151,19 @@ label {
 
 .sign-in-button {
   width: 100%;
+  height: 44px;
   padding: 12px 0;
   font-size: 16px;
   font-weight: bold;
-  background-color: #3b82f6;
+  background: linear-gradient(138.87deg, #233a72 1.08%, #435789 81.68%);
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   color: #fff;
   cursor: pointer;
 }
 
 .sign-in-button:hover {
-  background-color: #2563eb;
+  background: linear-gradient(138.87deg, #435789 1.08%, #233a72 81.68%);
 }
 
 .social-login {
