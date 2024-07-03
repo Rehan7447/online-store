@@ -1,7 +1,7 @@
 <template>
   <div class="custom_header">
     <div class="headerUpper">
-      <img src="../assets/logo.svg" alt="logo" class="headerLogo" />
+      <img src="../../assets/logo.svg" alt="logo" class="headerLogo" />
       <el-input
         v-model="searchInput"
         style="max-width: 600px"
@@ -16,7 +16,7 @@
 
       <div class="cartHolder">
         <el-badge :value="2" class="cartBadge">
-          <img src="../assets/cart.svg" alt="cart" />
+          <img src="../../assets/cart.svg" alt="cart" />
         </el-badge>
         <span>Cart</span>
       </div>

@@ -1,7 +1,11 @@
 <script setup>
-import Header from "../components/header.vue";
+import Header from "../components/common/header.vue";
+import Banner from "../components/home/banner.vue";
 </script>
 
 <template>
-  <Header />
+  <div>
+    <Header />
+    <Banner />
+  </div>
 </template>
