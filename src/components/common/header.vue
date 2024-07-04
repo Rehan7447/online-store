@@ -1,7 +1,9 @@
 <template>
   <div class="custom_header">
     <div class="headerUpper">
-      <img src="../../assets/logo.svg" alt="logo" class="headerLogo" />
+      <RouterLink to="/">
+        <img src="../../assets/logo.svg" alt="logo" class="headerLogo" />
+      </RouterLink>
       <el-input
         v-model="searchInput"
         style="max-width: 600px"
@@ -33,7 +35,7 @@
         active-text-color="#ffd04b"
       >
         <el-sub-menu index="1">
-          <template #title>Categorie</template>
+          <template #title>Categories</template>
           <el-menu-item index="1-1">Handmade</el-menu-item>
           <el-menu-item index="1-2">Women</el-menu-item>
           <el-menu-item index="1-3">Men</el-menu-item>

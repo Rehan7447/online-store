@@ -2,17 +2,23 @@
   <div class="otp-verification">
     <div class="form-container">
       <img
-        src="../../assets/otp-verification.png"
+        src="../../assets/otpPic.png"
         alt="OTP Verification"
         class="verification-image"
       />
       <h1>OTP Verification</h1>
-      <p>Enter the OTP sent to <strong>+234 706 067 2335</strong></p>
+      <p>Enter the OTP<strong></strong></p>
       <div class="otp-inputs">
-        <el-input v-model="otp1" maxlength="1" class="otp-input"></el-input>
-        <el-input v-model="otp2" maxlength="1" class="otp-input"></el-input>
-        <el-input v-model="otp3" maxlength="1" class="otp-input"></el-input>
-        <el-input v-model="otp4" maxlength="1" class="otp-input"></el-input>
+        <v-otp-input
+          input-classes="otp-input"
+          separator="-"
+          inputType="numeric"
+          :num-inputs="4"
+          :value="otpValue"
+          :should-auto-focus="true"
+          :should-focus-order="true"
+          @on-complete="handleOnComplete"
+        />
       </div>
       <p class="resend-otp">
         Didn’t you receive the OTP?
@@ -27,22 +33,24 @@
 
 <script setup>
 import { ref } from "vue";
-import { ElInput, ElButton } from "element-plus";
+import VOtpInput from "vue3-otp-input";
+// import "vue3-otp-input/dist/style.css"; // Import OTP Input styles
 
-const otp1 = ref("");
-const otp2 = ref("");
-const otp3 = ref("");
-const otp4 = ref("");
+const otpValue = ref("");
 
-const verifyOTP = () => {
-  const otp = `${otp1.value}${otp2.value}${otp3.value}${otp4.value}`;
-  console.log(`Entered OTP: ${otp}`);
-  // Handle OTP verification logic here
+const handleOnComplete = (value) => {
+  console.log("OTP completed: ", value);
+  // Handle OTP completion logic here
 };
 
 const resendOTP = () => {
   console.log("OTP resent");
   // Handle resend OTP logic here
+};
+
+const verifyOTP = () => {
+  console.log("Entered OTP: ", otpValue.value);
+  // Handle OTP verification logic here
 };
 </script>
 
@@ -53,21 +61,17 @@ const resendOTP = () => {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f5f5f5;
 }
 
 .form-container {
-  background-color: #fff;
   padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   width: 100%;
   max-width: 400px;
 }
 
 .verification-image {
-  width: 80px;
+  width: 157px;
   margin-bottom: 20px;
 }
 
@@ -84,18 +88,25 @@ p {
 }
 
 .otp-inputs {
-  display: flex;
-  justify-content: space-between;
   margin-bottom: 20px;
 }
 
-.otp-input {
-  width: 60px;
-  height: 60px;
+:deep(.otp-input-container) {
+  display: flex;
+  justify-content: space-between;
+}
+
+:deep(.otp-input-container span) {
+  display: none;
+}
+
+:deep(.otp-input) {
+  width: 50px;
+  height: 50px;
   font-size: 24px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
   text-align: center;
-  border: none;
-  border-bottom: 2px solid #000;
 }
 
 .resend-otp {

@@ -41,12 +41,6 @@
             placeholder="Enter your number"
             class="input-field"
           >
-            <template #prepend>
-              <el-select v-model="countryCode" placeholder="Select">
-                <el-option label="🇪🇬" value="EG"></el-option>
-                <!-- Add more country options here -->
-              </el-select>
-            </template>
           </el-input>
         </el-form-item>
       </div>
@@ -117,7 +111,6 @@ const phone = ref("");
 const password = ref("");
 const repeatPassword = ref("");
 const acceptTerms = ref(false);
-const countryCode = ref("EG"); // Default country code
 
 const handleSubmit = () => {
   console.log({
@@ -150,6 +143,7 @@ const handleSubmit = () => {
   text-align: center;
   width: 100%;
   max-width: 600px;
+  margin-top: 50px;
 }
 
 h1 {
