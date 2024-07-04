@@ -56,6 +56,8 @@
 </template>
 
 <script setup>
+import router from "@/router";
+import { login } from "@/service/requests";
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
 
@@ -64,11 +66,19 @@ const password = ref("");
 const rememberMe = ref(false);
 
 const handleSubmit = () => {
-  console.log({
-    email: email.value,
-    password: password.value,
-    rememberMe: rememberMe.value,
-  });
+  const formData = new FormData();
+  formData.append("email", email.value);
+  formData.append("password", password.value);
+
+  login(formData)
+    .then((response) => {
+      router.push("/");
+      console.log(response);
+    })
+    .catch((error) => {
+      console.error(error);
+      alert("Invalid email or password");
+    });
 };
 </script>
 

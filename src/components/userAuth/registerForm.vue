@@ -101,6 +101,8 @@
 </template>
 
 <script setup>
+import router from "@/router";
+import { register } from "@/service/requests";
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
 
@@ -113,15 +115,20 @@ const repeatPassword = ref("");
 const acceptTerms = ref(false);
 
 const handleSubmit = () => {
-  console.log({
-    firstName: firstName.value,
-    lastName: lastName.value,
-    email: email.value,
-    phone: phone.value,
-    password: password.value,
-    repeatPassword: repeatPassword.value,
-    acceptTerms: acceptTerms.value,
-  });
+  const formData = new FormData();
+  formData.append("name", firstName.value);
+  formData.append("last_name", lastName.value);
+  formData.append("email", email.value);
+  formData.append("phone", phone.value);
+  formData.append("password", password.value);
+
+  register(formData)
+    .then(() => {
+      router.push("/login");
+    })
+    .catch((err) => {
+      alert(err);
+    });
 };
 </script>
 
@@ -143,7 +150,7 @@ const handleSubmit = () => {
   text-align: center;
   width: 100%;
   max-width: 600px;
-  margin-top: 50px;
+  margin: 0 50px;
 }
 
 h1 {

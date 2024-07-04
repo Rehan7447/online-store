@@ -2,16 +2,40 @@
   <div class="recentlyViewed">
     <h2>Recently Viewed</h2>
     <div class="recentlyViewed-list">
-      <ItemCard v-for="i in 4" :key="i" />
+      <ItemCard v-for="item in products" :key="item.id" :item="item" />
     </div>
-    <div class="loadMore">
+    <div class="loadMore" @click="itemLength += 4">
       <p>Load More</p>
     </div>
   </div>
 </template>
 
 <script setup>
+import { onMounted, ref, watch } from "vue";
 import ItemCard from "./itemCard.vue";
+import { getAllProducts } from "@/service/requests";
+
+const products = ref([]);
+const itemLength = ref(4);
+
+const fetchData = () => {
+  getAllProducts()
+    .then((response) => {
+      products.value = response.data.data.products;
+      products.value = products.value.slice(0, itemLength.value);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+watch(itemLength, () => {
+  fetchData();
+});
+
+onMounted(() => {
+  fetchData();
+});
 </script>
 
 <style scoped>

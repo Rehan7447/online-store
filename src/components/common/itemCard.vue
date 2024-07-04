@@ -4,17 +4,16 @@
       <i class="far fa-heart"></i>
     </div>
     <img
-      src="../../assets/productItem.png"
-      alt="Nike Air Max 270 React"
+      :src="props.item?.thumbnail"
+      :alt="props.item?.name"
       class="product-image"
     />
-    <h2 class="product-title">Nike Air Max 270 React</h2>
+    <h2 class="product-title">{{ props.item?.name }}</h2>
     <div class="rating">
-      <el-icon><Star /></el-icon>
-      <el-icon><Star /></el-icon>
-      <el-icon><Star /></el-icon>
-      <el-icon><Star /></el-icon>
-      <el-icon><Star /></el-icon>
+      <el-icon v-for="i in 5" :key="i">
+        <StarFilled v-if="i <= Number(props.item?.rating)" />
+        <Star v-else />
+      </el-icon>
     </div>
     <div class="price">
       <span class="current-price">299,43 le</span>
@@ -29,7 +28,11 @@
 </template>
 
 <script setup>
-import { ShoppingCart, Star } from "@element-plus/icons-vue";
+import { ShoppingCart, Star, StarFilled } from "@element-plus/icons-vue";
+
+const props = defineProps({
+  item: Object,
+});
 </script>
 
 <style scoped>
@@ -79,9 +82,10 @@ import { ShoppingCart, Star } from "@element-plus/icons-vue";
 
 .price {
   display: flex;
-  /* flex-direction: column; */
+  justify-content: center;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 60px;
+  gap: 8px;
 }
 
 .current-price {
@@ -113,6 +117,8 @@ import { ShoppingCart, Star } from "@element-plus/icons-vue";
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  bottom: 0;
 }
 
 .add-to-cart span {

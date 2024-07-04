@@ -36,15 +36,18 @@
       >
         <el-sub-menu index="1">
           <template #title>Categories</template>
-          <el-menu-item index="1-1">Handmade</el-menu-item>
-          <el-menu-item index="1-2">Women</el-menu-item>
-          <el-menu-item index="1-3">Men</el-menu-item>
-          <el-menu-item index="1-4">Kids</el-menu-item>
-          <el-menu-item index="1-5">Mobile & Tablets</el-menu-item>
-          <el-menu-item index="1-6">Laptops</el-menu-item>
-          <el-menu-item index="1-7">Sport Equipments</el-menu-item>
-          <el-menu-item index="1-8">Car Equipments</el-menu-item>
-          <el-menu-item index="1-9">Games</el-menu-item>
+          <el-menu v-if="categories.length > 0">
+            <el-menu-item
+              v-for="category in categories"
+              :key="category.id"
+              :index="category.id"
+            >
+              <RouterLink :to="'/category/' + category.id" class="sub-category">
+                <img :src="category.thumbnail" :alt="category.name" />
+                <span>{{ category.name }}</span>
+              </RouterLink>
+            </el-menu-item>
+          </el-menu>
         </el-sub-menu>
         <el-menu-item index="2">Home</el-menu-item>
         <el-menu-item index="3">Offers</el-menu-item>
@@ -56,11 +59,23 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { Setting } from "@element-plus/icons-vue";
 import { RouterLink } from "vue-router";
+import { getAllCategories } from "@/service/requests";
 
 const searchInput = ref("");
+const categories = ref([]);
+
+onMounted(() => {
+  getAllCategories()
+    .then((response) => {
+      categories.value = response.data.data.categories;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 </script>
 
 <style scoped>
@@ -159,5 +174,24 @@ const searchInput = ref("");
 .sellButton:hover {
   background: linear-gradient(132.25deg, #ffaf4c 0%, #faa236 88.96%);
   color: white;
+}
+
+.sub-category {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+  text-decoration: none;
+}
+
+.sub-category img {
+  width: 20px;
+  height: 20px;
+}
+
+.sub-category span {
+  font-size: 18px;
+  font-weight: 500;
+  color: black;
 }
 </style>
