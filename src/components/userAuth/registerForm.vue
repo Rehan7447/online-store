@@ -7,7 +7,8 @@
         <el-form-item class="input-container">
           <label for="first-name">First Name</label>
           <el-input
-            id="first-name"
+            id="name"
+            name="name"
             v-model="firstName"
             placeholder="Enter your name"
             class="input-field"
@@ -16,7 +17,8 @@
         <el-form-item class="input-container">
           <label for="last-name">Last Name</label>
           <el-input
-            id="last-name"
+            id="last_name"
+            name="last_name"
             v-model="lastName"
             placeholder="Enter your name"
             class="input-field"
@@ -28,6 +30,7 @@
           <label for="email">Email</label>
           <el-input
             id="email"
+            name="email"
             v-model="email"
             placeholder="Enter your email"
             class="input-field"
@@ -37,6 +40,7 @@
           <label for="phone">Phone</label>
           <el-input
             id="phone"
+            name="phone"
             v-model="phone"
             placeholder="Enter your number"
             class="input-field"
@@ -49,6 +53,7 @@
           <label for="password">Password</label>
           <el-input
             id="password"
+            name="password"
             v-model="password"
             type="password"
             placeholder="Enter your password"
@@ -60,6 +65,7 @@
           <label for="repeat-password">Repeat Password</label>
           <el-input
             id="repeat-password"
+            name="repeat-password"
             v-model="repeatPassword"
             type="password"
             placeholder="Enter your password"
@@ -101,11 +107,12 @@
 </template>
 
 <script setup>
-import router from "@/router";
 import { register } from "@/service/requests";
+import { ElMessage } from "element-plus";
 import { ref } from "vue";
-import { RouterLink } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
 
+const router = useRouter();
 const firstName = ref("");
 const lastName = ref("");
 const email = ref("");
@@ -114,7 +121,7 @@ const password = ref("");
 const repeatPassword = ref("");
 const acceptTerms = ref(false);
 
-const handleSubmit = () => {
+const handleSubmit = (e) => {
   const formData = new FormData();
   formData.append("name", firstName.value);
   formData.append("last_name", lastName.value);
@@ -123,11 +130,14 @@ const handleSubmit = () => {
   formData.append("password", password.value);
 
   register(formData)
-    .then(() => {
-      router.push("/login");
+    .then((data) => {
+      ElMessage.success("Registration successful");
+      localStorage.setItem("user", JSON.stringify(data.data.data.user));
+      localStorage.setItem("token", data.data.data.access.token);
+      router.push("/");
     })
     .catch((err) => {
-      alert(err);
+      ElMessage.error(err.response.data.message);
     });
 };
 </script>

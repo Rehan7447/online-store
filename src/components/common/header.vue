@@ -14,9 +14,14 @@
           <el-button class="searchButton">Search</el-button>
         </template>
       </el-input>
-      <RouterLink class="headerButton" to="/login">Sign In</RouterLink>
+      <RouterLink class="headerButton" to="/login" v-if="!isLoggedIn"
+        >Sign In</RouterLink
+      >
+      <RouterLink class="headerButton" to="/login" v-else @click="logout"
+        >Logout</RouterLink
+      >
       <div class="cartHolder">
-        <el-badge :value="2" class="cartBadge">
+        <el-badge :value="0" class="cartBadge">
           <img src="../../assets/cart.svg" alt="cart" />
         </el-badge>
         <span>Cart</span>
@@ -59,13 +64,30 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onBeforeMount, onMounted, ref } from "vue";
 import { Setting } from "@element-plus/icons-vue";
 import { RouterLink } from "vue-router";
 import { getAllCategories } from "@/service/requests";
+import { ElMessage } from "element-plus";
 
 const searchInput = ref("");
 const categories = ref([]);
+const isLoggedIn = ref(true);
+
+const logout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  isLoggedIn.value = false;
+  ElMessage.success("Logged out successfully");
+};
+
+onBeforeMount(() => {
+  if (localStorage.getItem("token")) {
+    isLoggedIn.value = true;
+  } else {
+    isLoggedIn.value = false;
+  }
+});
 
 onMounted(() => {
   getAllCategories()

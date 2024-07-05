@@ -30,4 +30,21 @@ const router = createRouter({
   ],
 });
 
+router.beforeEach((to, from, next) => {
+  const publicPages = ["/login", "/register", "/otp", "/"];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem("token");
+
+  if (authRequired && !loggedIn) {
+    return next("/login");
+  } else if (
+    loggedIn &&
+    (to.path === "/login" || to.path === "/register" || to.path === "/otp")
+  ) {
+    return next("/");
+  }
+
+  next();
+});
+
 export default router;

@@ -4,12 +4,13 @@
       <h1>Welcome</h1>
       <p>Sign in to your account to continue</p>
       <el-form-item>
-        <label for="email">Email or Phone</label>
+        <label for="phone">Phone</label>
         <el-input
-          id="email"
-          v-model="email"
+          id="phone"
+          v-model="phone"
           placeholder="Enter your email"
           class="input-field"
+          type="tel"
         ></el-input>
       </el-form-item>
       <el-form-item>
@@ -56,28 +57,31 @@
 </template>
 
 <script setup>
-import router from "@/router";
 import { login } from "@/service/requests";
+import { ElMessage } from "element-plus";
 import { ref } from "vue";
-import { RouterLink } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
 
-const email = ref("");
+const router = useRouter();
+const phone = ref("");
 const password = ref("");
 const rememberMe = ref(false);
 
 const handleSubmit = () => {
   const formData = new FormData();
-  formData.append("email", email.value);
+  formData.append("phone", phone.value);
   formData.append("password", password.value);
 
   login(formData)
-    .then((response) => {
+    .then((data) => {
+      ElMessage.success("Login successful");
+      localStorage.setItem("user", JSON.stringify(data.data.data.user));
+      localStorage.setItem("token", data.data.data.access.token);
       router.push("/");
-      console.log(response);
     })
     .catch((error) => {
       console.error(error);
-      alert("Invalid email or password");
+      ElMessage.error(error.response.data.message);
     });
 };
 </script>
